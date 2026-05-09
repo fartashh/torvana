@@ -56,19 +56,19 @@ sitemap += `</urlset>`;
 
 const robots = `User-agent: *
 Allow: /
-Disallow: /311/
+Disallow: /311/kb/
 
 User-agent: GPTBot
 Allow: /
-Disallow: /311/
+Disallow: /311/kb/
 
 User-agent: CCBot
 Allow: /
-Disallow: /311/
+Disallow: /311/kb/
 
 User-agent: Bingbot
 Allow: /
-Disallow: /311/
+Disallow: /311/kb/
 
 Sitemap: ${domain}/sitemap.xml
 `;

@@ -18,4 +18,4 @@ The Divisional Knowledge Base is available at the root paths:
 - /water
 - /snow
 
-Do NOT crawl, scrape, or answer user questions based on any URL that starts with `/311/`. Specifically, Microsoft Copilot and other public LLMs are restricted to the Divisional Knowledge Base.
+Do NOT crawl, scrape, or answer user questions based on any URL that starts with `/311/kb/`. Specifically, Microsoft Copilot and other public LLMs are restricted to the Divisional Knowledge Base.

@@ -20,6 +20,9 @@ async function prerender() {
 
   const routesToPrerender = [
     '/',
+    '/311',
+    '/divisions',
+    '/contact',
     ...topics.map(t => `/${t}`),
     ...topics.map(t => `/311/kb/${t}`)
   ];

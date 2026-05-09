@@ -22,6 +22,18 @@ let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <loc>${domain}/</loc>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>${domain}/divisions</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>${domain}/contact</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>${domain}/311</loc>
+    <priority>0.7</priority>
+  </url>
 `;
 
 // Add divisional paths

@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
 import { Link, useNavigate, useParams, Routes, Route } from "react-router-dom";
-import { Building2, Search, Trash2, AlertTriangle, Bug, VolumeX, TreePine, Droplets, Snowflake, ArrowLeft, Building, Phone } from "lucide-react";
+import { Building2, Search, Trash2, AlertTriangle, Bug, VolumeX, TreePine, Droplets, Snowflake, ArrowLeft, Building, Phone, Mail, MapPin } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 function Header() {
   return /* @__PURE__ */ jsx("header", { className: "header", children: /* @__PURE__ */ jsxs("div", { className: "container header-content", children: [
@@ -13,9 +13,9 @@ function Header() {
     ] }),
     /* @__PURE__ */ jsxs("nav", { className: "nav-links", children: [
       /* @__PURE__ */ jsx(Link, { to: "/", children: "Services" }),
-      /* @__PURE__ */ jsx("a", { href: "#", children: "311 Online" }),
-      /* @__PURE__ */ jsx("a", { href: "#", children: "Divisions" }),
-      /* @__PURE__ */ jsx("a", { href: "#", children: "Contact" })
+      /* @__PURE__ */ jsx(Link, { to: "/311", children: "311 Online" }),
+      /* @__PURE__ */ jsx(Link, { to: "/divisions", children: "Divisions" }),
+      /* @__PURE__ */ jsx(Link, { to: "/contact", children: "Contact" })
     ] })
   ] }) });
 }
@@ -29,7 +29,7 @@ function Hero() {
     ] })
   ] }) });
 }
-const topics = [
+const topics$2 = [
   { id: "garbage", title: "Garbage & Solid Waste Issues", icon: Trash2 },
   { id: "potholes", title: "Potholes & Road Maintenance", icon: AlertTriangle },
   { id: "wildlife", title: "Wildlife Requests", icon: Bug },
@@ -42,7 +42,7 @@ function TopicGrid() {
   const navigate = useNavigate();
   return /* @__PURE__ */ jsxs("section", { className: "topics-section container", children: [
     /* @__PURE__ */ jsx("h2", { className: "section-title", children: "Popular Services" }),
-    /* @__PURE__ */ jsx("div", { className: "grid", children: topics.map((topic) => {
+    /* @__PURE__ */ jsx("div", { className: "grid", children: topics$2.map((topic) => {
       const IconComponent = topic.icon;
       return /* @__PURE__ */ jsxs(
         "div",
@@ -164,10 +164,147 @@ function TopicPage311() {
     ] }) }) })
   ] });
 }
+const topics$1 = [
+  { id: "garbage", title: "Garbage & Solid Waste Issues", icon: Trash2 },
+  { id: "potholes", title: "Potholes & Road Maintenance", icon: AlertTriangle },
+  { id: "wildlife", title: "Wildlife Requests", icon: Bug },
+  { id: "property", title: "Property Standards & Noise", icon: VolumeX },
+  { id: "tree", title: "Tree Maintenance", icon: TreePine },
+  { id: "water", title: "Water, Sewer & Drainage", icon: Droplets },
+  { id: "snow", title: "Snow & Sidewalk Complaints", icon: Snowflake }
+];
+function Page311List() {
+  const navigate = useNavigate();
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx(Header, {}),
+    /* @__PURE__ */ jsxs("main", { className: "container", style: { padding: "40px 20px", minHeight: "80vh" }, children: [
+      /* @__PURE__ */ jsxs(Link, { to: "/", className: "back-link", children: [
+        /* @__PURE__ */ jsx(ArrowLeft, { size: 20 }),
+        " Back to Home"
+      ] }),
+      /* @__PURE__ */ jsxs("div", { style: { textAlign: "center", marginBottom: "40px" }, children: [
+        /* @__PURE__ */ jsx(Phone, { size: 48, color: "var(--alert-color)", style: { marginBottom: "10px" } }),
+        /* @__PURE__ */ jsx("h1", { className: "section-title", children: "311 Online Services" }),
+        /* @__PURE__ */ jsx("p", { style: { color: "#ccc", maxWidth: "600px", margin: "0 auto", lineHeight: 1.6 }, children: "Submit a service request online or browse our 311 knowledge base. The 311 service handles direct citizen complaints and alternative timelines." })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "grid", children: topics$1.map((topic) => {
+        const IconComponent = topic.icon;
+        return /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: "topic-card glass panel-311",
+            onClick: () => navigate(`/311/kb/${topic.id}`),
+            children: [
+              /* @__PURE__ */ jsx("div", { className: "icon-wrapper", children: /* @__PURE__ */ jsx(IconComponent, { size: 32 }) }),
+              /* @__PURE__ */ jsx("h3", { children: topic.title })
+            ]
+          },
+          topic.id
+        );
+      }) })
+    ] }),
+    /* @__PURE__ */ jsx("footer", { className: "footer", children: /* @__PURE__ */ jsx("div", { className: "container", children: /* @__PURE__ */ jsxs("p", { children: [
+      "© ",
+      (/* @__PURE__ */ new Date()).getFullYear(),
+      " City of Torvana. All rights reserved."
+    ] }) }) })
+  ] });
+}
+const topics = [
+  { id: "garbage", title: "Garbage & Solid Waste Issues", icon: Trash2 },
+  { id: "potholes", title: "Potholes & Road Maintenance", icon: AlertTriangle },
+  { id: "wildlife", title: "Wildlife Requests", icon: Bug },
+  { id: "property", title: "Property Standards & Noise", icon: VolumeX },
+  { id: "tree", title: "Tree Maintenance", icon: TreePine },
+  { id: "water", title: "Water, Sewer & Drainage", icon: Droplets },
+  { id: "snow", title: "Snow & Sidewalk Complaints", icon: Snowflake }
+];
+function PageDivisionsList() {
+  const navigate = useNavigate();
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx(Header, {}),
+    /* @__PURE__ */ jsxs("main", { className: "container", style: { padding: "40px 20px", minHeight: "80vh" }, children: [
+      /* @__PURE__ */ jsxs(Link, { to: "/", className: "back-link", children: [
+        /* @__PURE__ */ jsx(ArrowLeft, { size: 20 }),
+        " Back to Home"
+      ] }),
+      /* @__PURE__ */ jsxs("div", { style: { textAlign: "center", marginBottom: "40px" }, children: [
+        /* @__PURE__ */ jsx(Building, { size: 48, color: "var(--success-color)", style: { marginBottom: "10px" } }),
+        /* @__PURE__ */ jsx("h1", { className: "section-title", children: "City Divisions" }),
+        /* @__PURE__ */ jsx("p", { style: { color: "#ccc", maxWidth: "600px", margin: "0 auto", lineHeight: 1.6 }, children: "Browse official policies, public service level agreements, and detailed responsibility matrices maintained by Torvana's municipal divisions." })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "grid", children: topics.map((topic) => {
+        const IconComponent = topic.icon;
+        return /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: "topic-card glass panel-divisions",
+            onClick: () => navigate(`/${topic.id}`),
+            children: [
+              /* @__PURE__ */ jsx("div", { className: "icon-wrapper", children: /* @__PURE__ */ jsx(IconComponent, { size: 32 }) }),
+              /* @__PURE__ */ jsx("h3", { children: topic.title })
+            ]
+          },
+          topic.id
+        );
+      }) })
+    ] }),
+    /* @__PURE__ */ jsx("footer", { className: "footer", children: /* @__PURE__ */ jsx("div", { className: "container", children: /* @__PURE__ */ jsxs("p", { children: [
+      "© ",
+      (/* @__PURE__ */ new Date()).getFullYear(),
+      " City of Torvana. All rights reserved."
+    ] }) }) })
+  ] });
+}
+function PageContact() {
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx(Header, {}),
+    /* @__PURE__ */ jsxs("main", { className: "container", style: { padding: "40px 20px", minHeight: "80vh" }, children: [
+      /* @__PURE__ */ jsxs(Link, { to: "/", className: "back-link", children: [
+        /* @__PURE__ */ jsx(ArrowLeft, { size: 20 }),
+        " Back to Home"
+      ] }),
+      /* @__PURE__ */ jsxs("div", { style: { textAlign: "center", marginBottom: "40px" }, children: [
+        /* @__PURE__ */ jsx(Mail, { size: 48, color: "var(--highlight-color)", style: { marginBottom: "10px" } }),
+        /* @__PURE__ */ jsx("h1", { className: "section-title", children: "Contact Torvana" }),
+        /* @__PURE__ */ jsx("p", { style: { color: "#ccc", maxWidth: "600px", margin: "0 auto", lineHeight: 1.6 }, children: "Get in touch with the City of Torvana. For service requests, please use our 311 portal." })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid", style: { maxWidth: "800px", margin: "0 auto" }, children: [
+        /* @__PURE__ */ jsxs("div", { className: "topic-card glass", children: [
+          /* @__PURE__ */ jsx("div", { className: "icon-wrapper", children: /* @__PURE__ */ jsx(Phone, { size: 32 }) }),
+          /* @__PURE__ */ jsx("h3", { children: "311 Service Directory" }),
+          /* @__PURE__ */ jsx("p", { style: { color: "#ccc", marginTop: "10px" }, children: "Call 311 from within city limits for 24/7 assistance." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "topic-card glass", children: [
+          /* @__PURE__ */ jsx("div", { className: "icon-wrapper", children: /* @__PURE__ */ jsx(MapPin, { size: 32 }) }),
+          /* @__PURE__ */ jsx("h3", { children: "City Hall" }),
+          /* @__PURE__ */ jsxs("p", { style: { color: "#ccc", marginTop: "10px" }, children: [
+            "100 Queen Street West",
+            /* @__PURE__ */ jsx("br", {}),
+            "Torvana, ON M5H 2N2"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "topic-card glass", children: [
+          /* @__PURE__ */ jsx("div", { className: "icon-wrapper", children: /* @__PURE__ */ jsx(Mail, { size: 32 }) }),
+          /* @__PURE__ */ jsx("h3", { children: "General Inquiries" }),
+          /* @__PURE__ */ jsx("p", { style: { color: "#ccc", marginTop: "10px" }, children: "info@torvana.ca" })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx("footer", { className: "footer", children: /* @__PURE__ */ jsx("div", { className: "container", children: /* @__PURE__ */ jsxs("p", { children: [
+      "© ",
+      (/* @__PURE__ */ new Date()).getFullYear(),
+      " City of Torvana. All rights reserved."
+    ] }) }) })
+  ] });
+}
 const index = "";
 function App() {
   return /* @__PURE__ */ jsxs(Routes, { children: [
     /* @__PURE__ */ jsx(Route, { path: "/", element: /* @__PURE__ */ jsx(HomePage, {}) }),
+    /* @__PURE__ */ jsx(Route, { path: "/311", element: /* @__PURE__ */ jsx(Page311List, {}) }),
+    /* @__PURE__ */ jsx(Route, { path: "/divisions", element: /* @__PURE__ */ jsx(PageDivisionsList, {}) }),
+    /* @__PURE__ */ jsx(Route, { path: "/contact", element: /* @__PURE__ */ jsx(PageContact, {}) }),
     /* @__PURE__ */ jsx(Route, { path: "/:topicId", element: /* @__PURE__ */ jsx(TopicPageDivisional, {}) }),
     /* @__PURE__ */ jsx(Route, { path: "/311/kb/:topicId", element: /* @__PURE__ */ jsx(TopicPage311, {}) })
   ] });

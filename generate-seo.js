@@ -4,7 +4,7 @@ import path from 'path';
 // VERCEL_URL is provided by Vercel during the build step.
 // We prepend https:// to it. If it doesn't exist, we fallback to localhost.
 const rawDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
-const domain = rawDomain ? `https://${rawDomain}` : 'http://localhost:5173';
+const domain = process.env.SITE_URL || (rawDomain ? `https://${rawDomain}` : 'http://localhost:5173');
 
 const topics = [
   'garbage',

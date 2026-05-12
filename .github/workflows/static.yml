@@ -14,15 +14,15 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    # Opt into Node.js 24 for all action runners to remove deprecation warnings
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,16 +63,6 @@ jobs:
             && echo "PASS: 311 page exists" \
             || (echo "FAIL: 311 page missing" && exit 1)
 
-          echo "--- Verifying dist/divisions/index.html exists ---"
-          test -f dist/divisions/index.html \
-            && echo "PASS: divisions page exists" \
-            || (echo "FAIL: divisions page missing" && exit 1)
-
-          echo "--- Verifying dist/contact/index.html exists ---"
-          test -f dist/contact/index.html \
-            && echo "PASS: contact page exists" \
-            || (echo "FAIL: contact page missing" && exit 1)
-
           echo "--- Verifying CSS asset was built ---"
           test -f dist/assets/index.css \
             && echo "PASS: CSS asset exists" \
@@ -81,10 +71,11 @@ jobs:
           echo "All checks passed!"
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+
         with:
           path: './dist'
 

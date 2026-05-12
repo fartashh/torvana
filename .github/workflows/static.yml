@@ -33,14 +33,32 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Vite client build
-        run: npx vite build
+      - name: Build (Vite client bundle)
+        run: ./node_modules/.bin/vite build
 
-      - name: Vite SSR build
-        run: npx vite build --ssr src/entry-server.jsx --outDir .server
+      - name: Build (Vite SSR bundle)
+        run: ./node_modules/.bin/vite build --ssr src/entry-server.jsx --outDir .server
 
       - name: Pre-render all routes
         run: node prerender.js
+
+      - name: Verify prerender output
+        run: |
+          echo "--- Checking dist/index.html for homepage content ---"
+          grep -q "How can we help" dist/index.html || (echo "FAIL: homepage content missing from dist/index.html" && exit 1)
+          echo "PASS: dist/index.html contains homepage content"
+          echo ""
+          echo "--- Checking dist/garbage/index.html for article content ---"
+          grep -q "Service Overview" dist/garbage/index.html || (echo "FAIL: article content missing from dist/garbage/index.html" && exit 1)
+          echo "PASS: dist/garbage/index.html contains article content"
+          echo ""
+          echo "--- Checking dist/311/index.html exists ---"
+          test -f dist/311/index.html || (echo "FAIL: dist/311/index.html not found" && exit 1)
+          echo "PASS: dist/311/index.html exists"
+          echo ""
+          echo "--- CSS asset path check ---"
+          grep -q '/torvana/assets/' dist/index.html || (echo "FAIL: CSS path missing from dist/index.html" && exit 1)
+          echo "PASS: CSS asset paths are correct"
 
       - name: Generate SEO files
         run: node generate-seo.js

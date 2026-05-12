@@ -1,5 +1,10 @@
 import { readFileSync, writeFileSync } from 'fs';
 const html = readFileSync('dist/index.html', 'utf-8');
+
+console.log('=== dist/index.html contents ===');
+console.log(html);
+console.log('=== end ===');
+
 const content = `<nav>
   <a href="/torvana/">Torvana</a>
   <a href="/torvana/311">311 Online</a>
@@ -19,5 +24,11 @@ const content = `<nav>
     <li>Snow &amp; Sidewalk Complaints</li>
   </ul>
 </main>`;
-writeFileSync('dist/index.html', html.replace('<!--app-html-->', content));
+
+const result = html
+  .replace('<!--app-html-->', content)
+  .replace(/<div id="root">(\s*)<\/div>/, `<div id="root">${content}</div>`)
+  .replace(/<div id="root"\/>/, `<div id="root">${content}</div>`);
+
+writeFileSync('dist/index.html', result);
 console.log('✅ Static HTML injected');

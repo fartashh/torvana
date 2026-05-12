@@ -39,13 +39,8 @@ jobs:
           # Passes the generated GitHub Pages domain to generate-seo.js
           SITE_URL: 'https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}'
           
-      - name: Prerender Pages & Generate SEO
-        run: |
-          node prerender.js
-          node generate-seo.js
-          cp dist/index.html dist/404.html
-        env:
-          SITE_URL: 'https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}'
+      - name: Setup SPA Fallback for GitHub Pages
+        run: cp dist/index.html dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

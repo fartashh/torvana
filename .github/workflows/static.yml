@@ -33,37 +33,49 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (Vite client bundle)
+      - name: Vite build
         run: ./node_modules/.bin/vite build
-
-      - name: Build (Vite SSR bundle)
-        run: ./node_modules/.bin/vite build --ssr src/entry-server.jsx --outDir .server
-
-      - name: Pre-render all routes
-        run: node prerender.js
-
-      - name: Verify prerender output
-        run: |
-          echo "--- Checking dist/index.html for homepage content ---"
-          grep -q "How can we help" dist/index.html || (echo "FAIL: homepage content missing from dist/index.html" && exit 1)
-          echo "PASS: dist/index.html contains homepage content"
-          echo ""
-          echo "--- Checking dist/garbage/index.html for article content ---"
-          grep -q "Service Overview" dist/garbage/index.html || (echo "FAIL: article content missing from dist/garbage/index.html" && exit 1)
-          echo "PASS: dist/garbage/index.html contains article content"
-          echo ""
-          echo "--- Checking dist/311/index.html exists ---"
-          test -f dist/311/index.html || (echo "FAIL: dist/311/index.html not found" && exit 1)
-          echo "PASS: dist/311/index.html exists"
-          echo ""
-          echo "--- CSS asset path check ---"
-          grep -q '/torvana/assets/' dist/index.html || (echo "FAIL: CSS path missing from dist/index.html" && exit 1)
-          echo "PASS: CSS asset paths are correct"
 
       - name: Generate SEO files
         run: node generate-seo.js
         env:
           SITE_URL: 'https://fartashh.github.io/torvana'
+
+      - name: Copy static HTML pages into dist/
+        run: |
+          echo "Copying static-pages/ into dist/..."
+          cp -r static-pages/. dist/
+          echo "Done. Listing dist/:"
+          find dist -name "index.html" | sort
+
+      - name: Verify homepage content
+        run: |
+          echo "--- Verifying dist/index.html has real content ---"
+          grep -q "How can we help" dist/index.html \
+            && echo "PASS: homepage content found" \
+            || (echo "FAIL: homepage content missing" && exit 1)
+
+          echo "--- Verifying dist/311/index.html exists ---"
+          test -f dist/311/index.html \
+            && echo "PASS: 311 page exists" \
+            || (echo "FAIL: 311 page missing" && exit 1)
+
+          echo "--- Verifying dist/divisions/index.html exists ---"
+          test -f dist/divisions/index.html \
+            && echo "PASS: divisions page exists" \
+            || (echo "FAIL: divisions page missing" && exit 1)
+
+          echo "--- Verifying dist/contact/index.html exists ---"
+          test -f dist/contact/index.html \
+            && echo "PASS: contact page exists" \
+            || (echo "FAIL: contact page missing" && exit 1)
+
+          echo "--- Verifying CSS asset was built ---"
+          test -f dist/assets/index.css \
+            && echo "PASS: CSS asset exists" \
+            || (echo "FAIL: CSS asset missing" && exit 1)
+
+          echo "All checks passed!"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

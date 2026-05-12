@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // Use relative paths so assets work at any URL depth (GitHub Pages, Vercel, local)
-  base: './',
+  // Must match the GitHub Pages repo subpath so asset URLs resolve correctly
+  base: '/torvana/',
   plugins: [react()],
 })

@@ -306,9 +306,10 @@ function App() {
     /* @__PURE__ */ jsx(Route, { path: "/311/kb/:topicId", element: /* @__PURE__ */ jsx(TopicPage311, {}) })
   ] });
 }
+const BASE = "/torvana";
 function render(url) {
   return ReactDOMServer.renderToString(
-    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(StaticRouter, { location: url, children: /* @__PURE__ */ jsx(App, {}) }) })
+    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(StaticRouter, { basename: BASE, location: BASE + (url === "/" ? "" : url), children: /* @__PURE__ */ jsx(App, {}) }) })
   );
 }
 export {

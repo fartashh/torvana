@@ -6,7 +6,8 @@ import App from './App';
 ReactDOM.hydrateRoot(
   document.getElementById('root'),
   <React.StrictMode>
-    <BrowserRouter>
+    {/* basename must match vite.config.js base (without trailing slash) */}
+    <BrowserRouter basename="/torvana">
       <App />
     </BrowserRouter>
   </React.StrictMode>

@@ -33,11 +33,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build project
-        run: npm run build
+      - name: Vite client build
+        run: npx vite build
+
+      - name: Vite SSR build
+        run: npx vite build --ssr src/entry-server.jsx --outDir .server
+
+      - name: Pre-render all routes
+        run: node prerender.js
+
+      - name: Generate SEO files
+        run: node generate-seo.js
         env:
-          # Vite configuration uses this to dynamically set the base path
-          GITHUB_REPOSITORY: ${{ github.repository }}
+          SITE_URL: 'https://fartashh.github.io/torvana'
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

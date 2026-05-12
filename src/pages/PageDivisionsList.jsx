@@ -13,8 +13,6 @@ const topics = [
 ];
 
 export default function PageDivisionsList() {
-  const navigate = useNavigate();
-
   return (
     <>
       <Header />
@@ -34,16 +32,18 @@ export default function PageDivisionsList() {
           {topics.map((topic) => {
             const IconComponent = topic.icon;
             return (
-              <div 
-                key={topic.id} 
-                className="topic-card glass panel-divisions"
-                onClick={() => navigate(`/${topic.id}`)}
-              >
+            <Link 
+              key={topic.id} 
+              to={`/${topic.id}`}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <div className="topic-card glass panel-divisions">
                 <div className="icon-wrapper">
                   <IconComponent size={32} />
                 </div>
                 <h3>{topic.title}</h3>
               </div>
+            </Link>
             );
           })}
         </div>

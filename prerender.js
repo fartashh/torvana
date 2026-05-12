@@ -29,7 +29,9 @@ async function prerender() {
 
   for (const url of routesToPrerender) {
     const appHtml = render(url);
-    const html = template.replace('<!--app-html-->', appHtml);
+    let html = template.replace('<!--app-html-->', appHtml);
+    // Strip all script tags to make the site fully static HTML
+    html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
 
     let filePath = `dist${url === '/' ? '/index.html' : `${url}/index.html`}`;
     const fullPath = path.resolve(process.cwd(), filePath);

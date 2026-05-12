@@ -2,7 +2,7 @@ import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server.mjs";
-import { Link, useNavigate, useParams, Routes, Route } from "react-router-dom";
+import { Link, useParams, Routes, Route } from "react-router-dom";
 import { Building2, Search, Trash2, AlertTriangle, Bug, VolumeX, TreePine, Droplets, Snowflake, ArrowLeft, Building, Phone, Mail, MapPin } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 function Header() {
@@ -39,20 +39,19 @@ const topics$2 = [
   { id: "snow", title: "Snow & Sidewalk Complaints", icon: Snowflake }
 ];
 function TopicGrid() {
-  const navigate = useNavigate();
   return /* @__PURE__ */ jsxs("section", { className: "topics-section container", children: [
     /* @__PURE__ */ jsx("h2", { className: "section-title", children: "Popular Services" }),
     /* @__PURE__ */ jsx("div", { className: "grid", children: topics$2.map((topic) => {
       const IconComponent = topic.icon;
-      return /* @__PURE__ */ jsxs(
-        "div",
+      return /* @__PURE__ */ jsx(
+        Link,
         {
-          className: "topic-card glass",
-          onClick: () => navigate(`/${topic.id}`),
-          children: [
+          to: `/${topic.id}`,
+          style: { textDecoration: "none", color: "inherit" },
+          children: /* @__PURE__ */ jsxs("div", { className: "topic-card glass", children: [
             /* @__PURE__ */ jsx("div", { className: "icon-wrapper", children: /* @__PURE__ */ jsx(IconComponent, { size: 32 }) }),
             /* @__PURE__ */ jsx("h3", { children: topic.title })
-          ]
+          ] })
         },
         topic.id
       );
@@ -174,7 +173,6 @@ const topics$1 = [
   { id: "snow", title: "Snow & Sidewalk Complaints", icon: Snowflake }
 ];
 function Page311List() {
-  const navigate = useNavigate();
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx(Header, {}),
     /* @__PURE__ */ jsxs("main", { className: "container", style: { padding: "40px 20px", minHeight: "80vh" }, children: [
@@ -189,15 +187,15 @@ function Page311List() {
       ] }),
       /* @__PURE__ */ jsx("div", { className: "grid", children: topics$1.map((topic) => {
         const IconComponent = topic.icon;
-        return /* @__PURE__ */ jsxs(
-          "div",
+        return /* @__PURE__ */ jsx(
+          Link,
           {
-            className: "topic-card glass panel-311",
-            onClick: () => navigate(`/311/kb/${topic.id}`),
-            children: [
+            to: `/311/kb/${topic.id}`,
+            style: { textDecoration: "none", color: "inherit" },
+            children: /* @__PURE__ */ jsxs("div", { className: "topic-card glass panel-311", children: [
               /* @__PURE__ */ jsx("div", { className: "icon-wrapper", children: /* @__PURE__ */ jsx(IconComponent, { size: 32 }) }),
               /* @__PURE__ */ jsx("h3", { children: topic.title })
-            ]
+            ] })
           },
           topic.id
         );
@@ -220,7 +218,6 @@ const topics = [
   { id: "snow", title: "Snow & Sidewalk Complaints", icon: Snowflake }
 ];
 function PageDivisionsList() {
-  const navigate = useNavigate();
   return /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx(Header, {}),
     /* @__PURE__ */ jsxs("main", { className: "container", style: { padding: "40px 20px", minHeight: "80vh" }, children: [
@@ -235,15 +232,15 @@ function PageDivisionsList() {
       ] }),
       /* @__PURE__ */ jsx("div", { className: "grid", children: topics.map((topic) => {
         const IconComponent = topic.icon;
-        return /* @__PURE__ */ jsxs(
-          "div",
+        return /* @__PURE__ */ jsx(
+          Link,
           {
-            className: "topic-card glass panel-divisions",
-            onClick: () => navigate(`/${topic.id}`),
-            children: [
+            to: `/${topic.id}`,
+            style: { textDecoration: "none", color: "inherit" },
+            children: /* @__PURE__ */ jsxs("div", { className: "topic-card glass panel-divisions", children: [
               /* @__PURE__ */ jsx("div", { className: "icon-wrapper", children: /* @__PURE__ */ jsx(IconComponent, { size: 32 }) }),
               /* @__PURE__ */ jsx("h3", { children: topic.title })
-            ]
+            ] })
           },
           topic.id
         );
@@ -311,7 +308,7 @@ function App() {
 }
 function render(url) {
   return ReactDOMServer.renderToString(
-    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(StaticRouter, { location: url, children: /* @__PURE__ */ jsx(App, {}) }) })
+    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(StaticRouter, { basename: "/", location: url, children: /* @__PURE__ */ jsx(App, {}) }) })
   );
 }
 export {

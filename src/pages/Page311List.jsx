@@ -13,8 +13,6 @@ const topics = [
 ];
 
 export default function Page311List() {
-  const navigate = useNavigate();
-
   return (
     <>
       <Header />
@@ -34,16 +32,18 @@ export default function Page311List() {
           {topics.map((topic) => {
             const IconComponent = topic.icon;
             return (
-              <div 
-                key={topic.id} 
-                className="topic-card glass panel-311"
-                onClick={() => navigate(`/311/kb/${topic.id}`)}
-              >
+            <Link 
+              key={topic.id} 
+              to={`/311/kb/${topic.id}`}
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <div className="topic-card glass panel-311">
                 <div className="icon-wrapper">
                   <IconComponent size={32} />
                 </div>
                 <h3>{topic.title}</h3>
               </div>
+            </Link>
             );
           })}
         </div>

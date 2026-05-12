@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Trash2, AlertTriangle, Bug, VolumeX, TreePine, Droplets, Snowflake } from 'lucide-react';
 
 const topics = [
@@ -12,7 +12,7 @@ const topics = [
 ];
 
 export default function TopicGrid() {
-  const navigate = useNavigate();
+
 
   return (
     <section className="topics-section container">
@@ -21,16 +21,18 @@ export default function TopicGrid() {
         {topics.map((topic) => {
           const IconComponent = topic.icon;
           return (
-            <div 
+            <Link 
               key={topic.id} 
-              className="topic-card glass"
-              onClick={() => navigate(`/${topic.id}`)}
+              to={`/${topic.id}`}
+              style={{ textDecoration: 'none', color: 'inherit' }}
             >
-              <div className="icon-wrapper">
-                <IconComponent size={32} />
+              <div className="topic-card glass">
+                <div className="icon-wrapper">
+                  <IconComponent size={32} />
+                </div>
+                <h3>{topic.title}</h3>
               </div>
-              <h3>{topic.title}</h3>
-            </div>
+            </Link>
           );
         })}
       </div>

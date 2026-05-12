@@ -6,7 +6,7 @@ import App from './App';
 ReactDOM.hydrateRoot(
   document.getElementById('root'),
   <React.StrictMode>
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>

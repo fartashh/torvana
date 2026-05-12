@@ -307,10 +307,8 @@ function App() {
   ] });
 }
 function render(url) {
-  const base = "/torvana/";
-  const fullUrl = base.replace(/\/$/, "") + url;
   return ReactDOMServer.renderToString(
-    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(StaticRouter, { basename: base, location: fullUrl, children: /* @__PURE__ */ jsx(App, {}) }) })
+    /* @__PURE__ */ jsx(React.StrictMode, { children: /* @__PURE__ */ jsx(StaticRouter, { location: url, children: /* @__PURE__ */ jsx(App, {}) }) })
   );
 }
 export {

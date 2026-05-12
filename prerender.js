@@ -33,6 +33,12 @@ async function prerender() {
     // Strip all script tags to make the site fully static HTML
     html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
 
+    // Fix relative asset paths based on nesting depth
+    // e.g. /311/kb/garbage is 3 levels deep, needs ../../../assets/
+    const depth = url === '/' ? 0 : url.split('/').filter(Boolean).length;
+    const prefix = depth === 0 ? './' : '../'.repeat(depth);
+    html = html.replace(/href="\.\//g, `href="${prefix}`).replace(/src="\.\//g, `src="${prefix}`);
+
     let filePath = `dist${url === '/' ? '/index.html' : `${url}/index.html`}`;
     const fullPath = path.resolve(process.cwd(), filePath);
     const dir = path.dirname(fullPath);

@@ -4,12 +4,9 @@ import { StaticRouter } from 'react-router-dom/server';
 import App from './App';
 
 export function render(url) {
-  const base = import.meta.env.BASE_URL;
-  const fullUrl = base === '/' ? url : base.replace(/\/$/, '') + url;
-
   return ReactDOMServer.renderToString(
     <React.StrictMode>
-      <StaticRouter basename={base} location={fullUrl}>
+      <StaticRouter location={url}>
         <App />
       </StaticRouter>
     </React.StrictMode>
